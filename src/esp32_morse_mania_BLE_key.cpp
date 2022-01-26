@@ -10,16 +10,17 @@ struct Key {
 };
 
 Key keys[] = {{12,'a',false}, {13,'s',false}, {14,KEY_RETURN,false}};
+int keysCount = sizeof(keys)/sizeof(*keys);
 
 void setup() {
-  for (int key = 0; key<3; key++) {
+  for (int key = 0; key<keysCount; key++) {
     pinMode(keys[key].PIN, INPUT_PULLUP);
   }
   bleKeyboard.begin();
 }
 
 void loop() {
-  for (int key = 0; key<3; key++) {
+  for (int key = 0; key<keysCount; key++) {
     if (HIGH == digitalRead(keys[key].PIN)) {
       if (keys[key].isPressed) {
         bleKeyboard.release(keys[key].KEY);
@@ -34,5 +35,4 @@ void loop() {
       }
     }
   }
-
 }
